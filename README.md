@@ -6,4 +6,4 @@ Fansite of the webseries [Petscop](https://www.youtube.com/c/Petscop) that lets 
 > The PlayStation controller buttons have set combinations that refer to a phoneme. These phonetic combinations refer to a dictionary table that output words that have the given phonetics. Errors in input (including words not in the dictionary table) will result in a "Not In Table" message.
 
 ## Phonetic table
-[Table](https://github.com/jeanniekim/p2totalk/blob/main/table.png?raw=true)
+![Table](https://github.com/jeanniekim/p2totalk/blob/main/table.png?raw=true)
