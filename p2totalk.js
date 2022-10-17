@@ -9,7 +9,7 @@
  * 
  * Triangle (Up)
  * Square (Left)
- * Cross (Down)
+ * X (Down)
  * Circle (Right)
  * 
  * Up (W)
@@ -36,5 +36,44 @@
 */
 
 /**
- * Final product
+ * build the table of combinations (translate each combination to corresponding phoneme)
+ * Second, figure out how to look up these phonemes in a table
+ * Third, translate the phoneme combinations into words using some kind of dictionary
  */
+
+/**
+ * Build the table of combinations
+ * https://www.geeksforgeeks.org/python-program-to-get-all-unique-combinations-of-two-lists/
+ */
+
+ import { permutations } from 'itertools';
+  
+ // initialize lists
+ const faceButtons = ["TRIANGLE", "SQUARE", "X", "CIRCLE"];
+ const dPad = ["UP", "LEFT", "DOWN", "RIGHT"];
+ const start = ["START"];
+
+ const firstInput = faceButtons + dPad + start;
+ 
+ const shoulderButtons = ["L2", "L1", "R1", "R2"];
+ 
+ const secondInput = shoulderButtons + ""; // no input = empty string???
+
+ console.log(firstInput);
+  
+ // create empty (variable) list to store the combinations
+ var unique_combinations = [];
+  
+ // Getting all permutations of list_1
+// with length of list_2
+ var permut = itertools.permutations(firstInput, len(secondInput));
+  
+ // zip() is called to pair each permutation
+ // and shorter list element into combination
+ for (comb in permut){
+    zipped = zip(comb, list_2);
+    unique_combinations.push(list(zipped));
+ }
+     
+  
+ console.log(unique_combinations);

@@ -12,6 +12,7 @@ Default keybinds are same as those listed on the [Giftscop website](https://gift
 - Face buttons (`Cross Triangle Circle Square`) --> `Arrow keys`
 - Start --> `Enter`
 - Shoulder buttons (`L2 L1 R1 R2`) --> `ZXCV`
+- Select (Enter) --> `Space`
 
 ## Language
 See [phonetic table](https://github.com/jeanniekim/p2totalk/blob/main/table.png?raw=true) for the phoneme button combinations.
@@ -19,7 +20,7 @@ See [phonetic table](https://github.com/jeanniekim/p2totalk/blob/main/table.png?
 First input: 
  * Triangle (Up)
  * Square (Left)
- * Cross (Down)
+ * X (Down)
  * Circle (Right)
  * Up (W)
  * Left (A)
