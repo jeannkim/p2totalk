@@ -15,3 +15,6 @@ define variables for different button presses
 
 
 - i should just make a file on my local computer that deals with this
+
+
+How do I map two-ish inputs to an equivalent phoneme?

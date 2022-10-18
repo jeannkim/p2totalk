@@ -20,7 +20,7 @@ See [phonetic table](https://github.com/jeanniekim/p2totalk/blob/main/table.png?
 First input: 
  * Triangle (Up)
  * Square (Left)
- * X (Down)
+ * Cross (Down)
  * Circle (Right)
  * Up (W)
  * Left (A)
