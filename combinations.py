@@ -65,7 +65,7 @@ def getPhonemes(inputString):
     # iterate through individual inputs
     for i in range(len(inps)):
 
-        print(inps[i])     # current input 
+        #print(inps[i])     # current input 
     
         # input is a first input; phoneme found
         if (inps[i] in firstInput):            
@@ -83,7 +83,7 @@ def getPhonemes(inputString):
             # convert the tuple to output
             tup = tuple(pair)      # (first, second) or (first, "")
 
-            print(tup)
+            #print(tup)
 
             # convert to the phoneme!
             
@@ -93,6 +93,7 @@ def getPhonemes(inputString):
                 print("NOT IN TABLE")
                 return
         
+            # corresponding phoneme is "" in table
             if len(phoneme) < 1:
                 print("NOT IN TABLE")
                 return
@@ -100,7 +101,17 @@ def getPhonemes(inputString):
             # add phoneme to printed string
             decodedStr += bigDict.get(tup)
         
+        # secondInput
         else:
+            # first input cannot be a secondInput
+            if (i == 0):
+                print("NOT IN TABLE")
+                return
+            # two second inputs cannot be consecutive
+            if (i < len(inps)-1):
+                if (inps[i+1] not in firstInput):
+                    print("NOT IN TABLE")
+                    return
             continue     
     
     print(decodedStr)

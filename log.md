@@ -69,4 +69,15 @@ else:
     skip
 
 > god if this works i will convert to judaism
+> i am converting to judaism
 
+- NOT IN TABLE does not work lmao
+.....
+logic
+
+NOT IN TABLE
+- second input cannot be the first neme
+- two second inputs cannot follow each other
+- there are some combinations of first + seconds that are literally not in the table
+    - will return ""
+    
