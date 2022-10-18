@@ -45,7 +45,6 @@ for i in range(len(combos)):
 
 #print(bigDict)
 
-# test this shit
 
 # FUN TIME: do the map from CL
 # first and second inputs stored inside map
@@ -53,41 +52,60 @@ for i in range(len(combos)):
 
 #print(bigDict.get((first,second)))
 
-#there has to be a nicer way to structure this but whatever
-
-
 # parsing it as it happens
 # want input: LEFT LEFT L2 -> e ʌ
 
-talk = input("Enter string of inputs, spaces in between: ")
-queue = []
-decodedStr = ""
-
-for i in range(len(talk.split())):
-    neme = talk.split()[i]
-
-    if neme in firstInput:
-        # if the key is a first input, empty the queue
-        # and decode whatever was in it to output
-        match len(queue):
-            case 0:
-                queue.append(neme)
-                continue
-            case 1:
-                queue.append("")    # append the empty string
-            
-        # convert the tuple to output
-        tup = tuple(queue)
-
-        print(tup)
-        decodedStr += bigDict.get(tup)
-
-        queue = []
+## param: string of inputs; "LEFT LEFT L2"
+## return: string of corresponding phonemes; "e ʌ"
+def getPhonemes(inputString):
+    decodedStr = ""     # final string to return
+    # split string (by " ") into arr of inputs
+    inps = inputString.split()
     
+    # iterate through individual inputs
+    for i in range(len(inps)):
 
+        print(inps[i])     # current input 
+    
+        # input is a first input; phoneme found
+        if (inps[i] in firstInput):            
+            pair = []  # pair of inputs to convert
+
+            # if inp is last element or the element after it is firstInput
+            if (i == (len(inps)-1)) or (inps[i+1] in firstInput):
+                # lone first input found
+                pair = [inps[i], ""]
+            
+            else:
+                # first and second input found
+                pair = [inps[i], inps[i+1]]
+            
+            # convert the tuple to output
+            tup = tuple(pair)      # (first, second) or (first, "")
+
+            print(tup)
+
+            # convert to the phoneme!
+            
+            try:
+                phoneme = bigDict.get(tup)
+            except:
+                print("NOT IN TABLE")
+                return
         
-    queue.append(neme)
+            if len(phoneme) < 1:
+                print("NOT IN TABLE")
+                return
+            
+            # add phoneme to printed string
+            decodedStr += bigDict.get(tup)
+        
+        else:
+            continue     
+    
+    print(decodedStr)
+    return
 
-    # this queue should never have more than two elems at a time
 
-print(decodedStr)
+talk = input("Enter string of inputs, spaces in between: ")
+getPhonemes(talk)

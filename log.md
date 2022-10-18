@@ -18,3 +18,55 @@ define variables for different button presses
 
 
 How do I map two-ish inputs to an equivalent phoneme?
+
+
+rethink this logic here
+
+LEFT LEFT L2
+- so if you have LEFT LEFT LEFT it's three things
+- if you reach a firstinput then the previous thig
+
+
+
+
+end this logical mess
+
+This implementation: some weird 2 queue thing
+- too many weird cases (first and last element)
+
+LEFT LEFT L2
+^
+1. first thing; store in queue [LEFT]
+    - can ignore the firstInput case because there'll be nothing in the queue anyway
+
+LEFT LEFT L2
+     ^
+2. see firstInput
+    - return queue process
+        > if theres only one thing in the queue, add ""
+        > there shouldn't be nothing in the queue
+        > there should be either 1 or 2 things
+        > convert to thing
+    - add the thing to the queue
+
+LEFT LEFT L2
+          ^
+3. 
+
+
+could just do a hilarious meme i+1 thing
+
+LEFT LEFT 
+LEFT L2
+LEFT LEFT L2
+LEFT L2 LEFT L2
+
+for loop from first - last element
+if i is a firstInput:
+    if i is the last element OR i+1 is firstInput, return (i, "")
+    else, return (i, i+1)
+else:
+    skip
+
+> god if this works i will convert to judaism
+
