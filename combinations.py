@@ -4,6 +4,9 @@
 # import itertools package
 import itertools
 from itertools import permutations
+
+import re
+
  
 # ---------- INPUTS TO PHONEMES -----------
 
@@ -170,10 +173,41 @@ def getPhonemes(inputString):
     return
 
 
-talk = input("Enter string of inputs, spaces in between: ")
-getPhonemes(talk)
+# talk = input("Enter string of inputs, spaces in between: ")
+# getPhonemes(talk)
 
 
 
 # ======== PHONEMES TO WORDS =========
+
+# file stuff: copy cmudict, get rid of stress markers
+
+with open("cmudict.dict",'r', encoding="utf8") as a: # first, read txt file into a list
+    cmudict = a.read().splitlines()
+
+dictClean = []
+
+for line in cmudict:
+    newline = ""
+    things = line.split()
+    for i in range(len(things)):
+        if (i == 0):
+            newline += things[i] + " "
+            continue
+        
+        if (things[i] != "AH0"):
+            newline += re.sub(r'\d+', "", things[i])
+        else:
+            newline += things[i]
+
+        if (i != len(things)-1):
+            newline += " "
+
+    dictClean.append(newline)
+
+            
+with open("cleandict.txt",'w', encoding="utf8") as w: # first, read txt file into a list
+    for line in dictClean:
+        w.write(f"{line}\n")
+
 
