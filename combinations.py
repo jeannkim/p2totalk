@@ -114,6 +114,7 @@ ERR_MSG = "NOT IN TABLE"
 ## return: string of corresponding phonemes; "e ʌ"
 def getPhonemes(inputString):
     decodedStr = ""     # final string to return
+    thePhonemes = []       # final array of phonemes to return
     # split string (by " ") into arr of inputs
     inps = inputString.split()
     
@@ -154,7 +155,10 @@ def getPhonemes(inputString):
                 return
             
             # add phoneme to printed string
-            decodedStr += biggerDict.get(tup) + " "
+            # and final array
+
+            decodedStr += phoneme + " "
+            thePhonemes.append(phoneme)
         
         # secondInput
         else:
@@ -169,13 +173,13 @@ def getPhonemes(inputString):
                     return
             continue     
     
-    print(decodedStr)
-    return
+    #print(decodedStr)
+    return thePhonemes
 
 
-# talk = input("Enter string of inputs, spaces in between: ")
-# getPhonemes(talk)
-
+talk = input("Enter string of inputs delimited by spaces: ")
+phonemeTest = getPhonemes(talk)
+#print(phonemeTest)
 
 
 # ======== PHONEMES TO WORDS =========
@@ -185,7 +189,7 @@ def getPhonemes(inputString):
 with open("cmudict.dict",'r', encoding="utf8") as a: # first, read txt file into a list
     cmudict = a.read().splitlines()
 
-dictClean = []
+cmuclean = []
 
 for line in cmudict:
     newline = ""
@@ -203,11 +207,36 @@ for line in cmudict:
         if (i != len(things)-1):
             newline += " "
 
-    dictClean.append(newline)
+    cmuclean.append(newline)
 
             
 with open("cleandict.txt",'w', encoding="utf8") as w: # first, read txt file into a list
-    for line in dictClean:
+    for line in cmuclean:
         w.write(f"{line}\n")
 
 
+# shall we get matching now?
+
+# "read" this file into a dictionary
+
+dictClean = {}
+
+
+for line in cmuclean:
+    splitline = line.split()
+    # key: the phonemes, value: word
+    dictClean[" ".join(splitline[1:])] = splitline[0]
+
+ERR_WORD = "WORD NOT IN TABLE"
+# param: list of phonemes (in strings)
+# return: word if match found, WORD NOT IN TABLE if not
+def getWordFromPhonemes(phonemes):
+    phonemeStr = " ".join(phonemes)
+    try:
+        word = dictClean.get(phonemeStr)
+    except:
+        print(ERR_WORD)
+        return
+    return word.capitalize()
+
+print(">> " + getWordFromPhonemes(phonemeTest))

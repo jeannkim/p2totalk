@@ -18,6 +18,12 @@ Default keybinds are same as those listed on the [Giftscop website](https://gift
 See [phonetic table](https://github.com/jeanniekim/p2totalk/blob/main/table.png?raw=true) for the phoneme button combinations.
 
 First input: 
+ * L2 (Z)
+ * L1 (X)
+ * R1 (C)
+ * R2 (V)
+
+ Second input (optional): 
  * Triangle (Up)
  * Square (Left)
  * Cross (Down)
@@ -27,13 +33,6 @@ First input:
  * Down (S)
  * Right (D)
  * Start (Enter)
- 
- Second input (optional): 
-
- * L2 (Z)
- * L1 (X)
- * R1 (C)
- * R2 (V)
 
  Maximum two inputs per phoneme, the first can be inputted alone.
 
