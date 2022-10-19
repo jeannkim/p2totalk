@@ -37,5 +37,10 @@ First input:
 
  Maximum two inputs per phoneme, the first can be inputted alone.
 
- ## Testing
+## Testing
 Testing will be done using the [canon usage](https://petscop.fandom.com/wiki/Gamepad_language/Vocabulary) of the Gamepage language in Petscop.
+
+
+## Dictionary
+Using the [CMU Pronouncing Dictionary](https://en.wikipedia.org/wiki/CMU_Pronouncing_Dictionary), specifically [cmudict.dict](https://github.com/cmusphinx/cmudict/blob/master/cmudict.dict) from [cmusphinx](https://github.com/cmusphinx).
+

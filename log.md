@@ -80,4 +80,10 @@ NOT IN TABLE
 - two second inputs cannot follow each other
 - there are some combinations of first + seconds that are literally not in the table
     - will return ""
-    
+
+done.
+
+**step 3: phonemes to words**
+
+Using [CMU pronouncing dictionary](https://en.wikipedia.org/wiki/CMU_Pronouncing_Dictionary)!
+
