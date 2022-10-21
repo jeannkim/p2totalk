@@ -16,14 +16,24 @@ faceButtons = ["CROSS", "SQUARE", "CIRCLE", "TRIANGLE"]
 dPad = ["LEFT", "RIGHT", "UP", "DOWN"]
 start = ["START"]
 
-firstInput = faceButtons + dPad + start
+# "root" inputs; can be lone
+roots = faceButtons + dPad + start
 
 shoulderButtons = ["R2", "R1", "L2", "L1"]
  
-secondInput = shoulderButtons + [""] # no input = empty string ??
+# "prefix" inputs; come before roots, optional
+prefixes = shoulderButtons + [""]   # can have no prefix
 
 
-combos = list(itertools.product(firstInput, secondInput))
+wrongcombos = list(itertools.product(roots, prefixes))
+
+combos = list()
+
+# bruh just swap them
+# i dont want to reorder everything
+for wrcom in wrongcombos:
+    combos.append((wrcom[1], wrcom[0]))
+
 
 # printing unique_combination list
 #print(combos)
@@ -42,6 +52,7 @@ phonemes = ["u", "eɪ", "m", "s", "ɑ",
     "f", "oʊ", "j", "dʒ", "aɪ",
     "v", "", "h", "k", "æ",
     "d", "", "w", "tʃ", "ə"]
+
 
 # should correspond one to one with the combos up there
 
@@ -97,7 +108,7 @@ biggerDict = {}
 for i in range(len(combos)):
     biggerDict[combos[i]] = arpaphonemes[i]
 
-
+#print(biggerDict)
 
 # FUN TIME: do the map from CL
 # first and second inputs stored inside map
@@ -123,18 +134,22 @@ def getPhonemes(inputString):
 
         #print(inps[i])     # current input 
     
-        # input is a first input; phoneme found
-        if (inps[i] in firstInput):            
+        # current input is a root; phoneme found
+        if (inps[i] in roots):            
             pair = []  # pair of inputs to convert
 
-            # if inp is last element or the element after it is firstInput
-            if (i == (len(inps)-1)) or (inps[i+1] in firstInput):
-                # lone first input found
-                pair = [inps[i], ""]
+            # if inp is the first input or the element before it is root
+            if (i == 0) or (inps[i-1] in roots):
+                # lone root input found
+                pair = ["", inps[i]]
             
             else:
-                # first and second input found
-                pair = [inps[i], inps[i+1]]
+                # pair found; input preceding should be prefix
+                if (inps[i-1] not in prefixes):
+                    print(ERR_MSG, " INVALID PREFIX")
+                    return
+                # add pair
+                pair = [inps[i-1], inps[i]]
             
             # convert the tuple to output
             tup = tuple(pair)      # (first, second) or (first, "")
@@ -160,15 +175,12 @@ def getPhonemes(inputString):
             decodedStr += phoneme + " "
             thePhonemes.append(phoneme)
         
-        # secondInput
+        # current input is a prefix
         else:
-            # first input cannot be a secondInput
-            if (i == 0):
-                print(ERR_MSG)
-                return
-            # two second inputs cannot be consecutive
+            # two prefixes cannot be consecutive
             if (i < len(inps)-1):
-                if (inps[i+1] not in firstInput):
+                # if the next input isn't a root
+                if (inps[i+1] not in roots):
                     print(ERR_MSG)
                     return
             continue     
@@ -179,7 +191,7 @@ def getPhonemes(inputString):
 
 talk = input("Enter string of inputs delimited by spaces: ")
 phonemeTest = getPhonemes(talk)
-#print(phonemeTest)
+print(phonemeTest)
 
 
 # ======== PHONEMES TO WORDS =========
@@ -240,3 +252,4 @@ def getWordFromPhonemes(phonemes):
     return word.capitalize()
 
 print(">> " + getWordFromPhonemes(phonemeTest))
+
