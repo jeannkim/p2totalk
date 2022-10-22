@@ -76,14 +76,16 @@ for i in range(len(combos)):
 # AH0 and AH are different things
 # but 0, 1, and 2 also annotate stresses
 
-arpaipa = {"ɑ": "AA", "æ":"AE", "ə": "AH0", 
-    "ʌ": "AH", "ɔ": "AW", "aɪ": "AY", "ɛ": "EH", 
-    "ɚ": "ER", "eɪ": "EY", "ɪ": "IH", "i": "IY", 
-    "oʊ": "OW", "ɔɪ": "OY", "ʊ": "UH", "u": "UW",
-    "b": "B", "tʃ": "CH", "d": "D", "ð": "DH",
+arpaipa = {"ɑ": "AA", "æ":"AE", "ʌ": "AH", "ə": "AH0", 
+    "ɔ": "AO", "aʊ": "AW", "ə": "AX", "ɚ": "ER", 
+    "aɪ": "AY", "ɛ": "EH", "ɝ": "ER", "eɪ": "EY", "ɪ": "IH", 
+    "ɨ": "IX", "i": "IY", "oʊ": "OW", "ɔɪ": "OY", 
+    "ʊ": "UH", "u": "UW", "ʉ": "UX",
+    "b": "B", "tʃ": "CH", "d": "D", "ð": "DH", "ɾ": "DX",
+    "l̩": "EL", "m̩": "EM", "n̩": "EN",
     "f": "F", "g": "G", "h": "HH", "dʒ": "JH",
     "k": "K", "l": "L", "m": "M", "n": "N",
-    "ŋ": "NG", "p": "P", "r": "R", "s": "S",
+    "ŋ": "NG", "ɾ̃": "NX", "p": "P", "ʔ": "Q", "r": "R", "s": "S",
     "ʃ": "SH", "t": "T", "θ": "TH", "v": "V",
     "w": "W", "j": "Y", "z": "Z", "ʒ": "ZH"}
 
