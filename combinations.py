@@ -223,7 +223,14 @@ for line in cmudict:
 
     cmuclean.append(newline)
 
-            
+
+# === Dealing with Duplicates ===
+# maybe i should read the cmudict into something that's not a list lmao
+
+# pipe this to c++?
+
+
+# ==== writing to dictionary file ====      
 with open("cleandict.txt",'w', encoding="utf8") as w: # first, read txt file into a list
     for line in cmuclean:
         w.write(f"{line}\n")
