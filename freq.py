@@ -1,11 +1,4 @@
-# my pain is infinite
-# get the word frequency from the frequency list
-
-# https://github.com/hermitdave/FrequencyWords
-
-
-# god this is so inefficient
-
+# word frequencies from https://github.com/hermitdave/FrequencyWords
 
 # @param string word 
 # @return int frequency
@@ -79,9 +72,7 @@ def highestFreqWord(words):
         else:
             highestWord = word
             minLinNum = curLineNum
-
-    #print(minLinNum)
-
+            
     return highestWord
         
 
