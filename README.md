@@ -17,13 +17,13 @@ Default keybinds are same as those listed on the [Giftscop website](https://gift
 ## Language
 See [phonetic table](https://github.com/jeanniekim/p2totalk/blob/main/table.png?raw=true) for the phoneme button combinations.
 
-First input: 
+'Prefix' inputs (optional): 
  * L2 (Z)
  * L1 (X)
  * R1 (C)
  * R2 (V)
 
- Second input (optional): 
+ 'Root' inputs: 
  * Triangle (Up)
  * Square (Left)
  * Cross (Down)

@@ -12,26 +12,24 @@ import re
 
 # initialize lists
 
+
+# "prefix" inputs; come before roots, optional
+shoulderButtons = ["R2", "R1", "L2", "L1"]
+prefixes = shoulderButtons + [""]   # can have no prefix
+
+# "root" inputs; can be lone
 faceButtons = ["CROSS", "SQUARE", "CIRCLE", "TRIANGLE"]
 dPad = ["LEFT", "RIGHT", "UP", "DOWN"]
 start = ["START"]
-
-# "root" inputs; can be lone
 roots = faceButtons + dPad + start
 
-shoulderButtons = ["R2", "R1", "L2", "L1"]
- 
-# "prefix" inputs; come before roots, optional
-prefixes = shoulderButtons + [""]   # can have no prefix
-
-
-wrongcombos = list(itertools.product(roots, prefixes))
-
+# get all possible button combinations
+flippedcombos = list(itertools.product(roots, prefixes))
 combos = list()
 
 # bruh just swap them
 # i dont want to reorder everything
-for wrcom in wrongcombos:
+for wrcom in flippedcombos:
     combos.append((wrcom[1], wrcom[0]))
 
 
@@ -39,7 +37,6 @@ for wrcom in wrongcombos:
 #print(combos)
 
 # map these combinations to phonemes???
-
 
 
 # all from the Table
@@ -58,7 +55,7 @@ phonemes = ["u", "eɪ", "m", "s", "ɑ",
 
 bigDict = {}
 
-# fill the dict. key is combo, value is phoneme
+# fill the dict. key is button combination, value is phoneme
 for i in range(len(combos)):
     bigDict[combos[i]] = phonemes[i]
 
@@ -200,45 +197,51 @@ print(phonemeTest)
 
 # file stuff: copy cmudict, get rid of stress markers
 
-with open("cmudict.dict",'r', encoding="utf8") as a: # first, read txt file into a list
-    cmudict = a.read().splitlines()
+def processCmudict():
 
-cmuclean = []
+    with open("cmudict.dict",'r', encoding="utf8") as a: # first, read txt file into a list
+        cmudict = a.read().splitlines()
 
-for line in cmudict:
-    newline = ""
-    things = line.split()
-    for i in range(len(things)):
-        if (i == 0):
-            newline += things[i] + " "
-            continue
-        
-        if (things[i] != "AH0"):
-            newline += re.sub(r'\d+', "", things[i])
-        else:
-            newline += things[i]
+    cmuclean = []
 
-        if (i != len(things)-1):
-            newline += " "
+    for line in cmudict:
+        newline = ""
+        things = line.split()
+        for i in range(len(things)):
+            if (i == 0):
+                newline += things[i] + " "
+                continue
+            
+            if (things[i] != "AH0"):
+                newline += re.sub(r'\d+', "", things[i])
+            else:
+                newline += things[i]
 
-    cmuclean.append(newline)
+            if (i != len(things)-1):
+                newline += " "
 
-
-# === Dealing with Duplicates ===
-# maybe i should read the cmudict into something that's not a list lmao
-
-# pipe this to c++?
+        cmuclean.append(newline)
 
 
-# ==== writing to dictionary file ====      
-with open("cleandict.txt",'w', encoding="utf8") as w: # first, read txt file into a list
-    for line in cmuclean:
-        w.write(f"{line}\n")
+    # === Dealing with Duplicates ===
+    # maybe i should read the cmudict into something that's not a list lmao
+
+    # pipe this to c++?
+
+
+    # ==== writing to dictionary file ====      
+    with open("cleandict.txt",'w', encoding="utf8") as w: # first, read txt file into a list
+        for line in cmuclean:
+            w.write(f"{line}\n")
+    
+    return cmuclean
 
 
 # shall we get matching now?
 
 # "read" this file into a dictionary
+
+cmuclean = processCmudict()
 
 dictClean = {}
 

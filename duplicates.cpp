@@ -11,6 +11,9 @@ using namespace std;
  * @return the best corresponding word for that pronunciation
 */
 string chooseBestWord(string pronun){
+
+    // something that decides which word is the most used
+    // what is there an api fr t hs
     
 }
 
