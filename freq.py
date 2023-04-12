@@ -4,7 +4,7 @@
 # @return int frequency
 def getFreq(word):
     
-    with open("en_50k.txt",'r', encoding="utf8") as a: # first, read txt file into a list
+    with open("en_full.txt",'r', encoding="utf8") as a: # first, read txt file into a list
         while True:    
             # Get next line from file
             line = a.readline()
@@ -26,7 +26,7 @@ def getFreq(word):
 # @return int line it was found on
 def getLineNum(word, endLineNum):
     
-    with open("en_50k.txt",'r', encoding="utf8") as a: # first, read txt file into a list
+    with open("en_full.txt",'r', encoding="utf8") as a: # first, read txt file into a list
         linenum = 1         # keep track of line number
 
         while linenum <= endLineNum:    
@@ -47,21 +47,18 @@ def getLineNum(word, endLineNum):
 
         return -1
 
-print(getFreq("what"))
-#print(getLineNum("balls"))
-
-
 # @param string array of words 
 # @return string word with the highest freq
 def highestFreqWord(words):
 
+    # storing word with highest frequency + its line number
     highestWord = words[0]  
-    minLinNum = 50000    # initial
+    minLinNum = 50000    # initially 50k
 
     for word in words:
         word = word.lower()
 
-        curLineNum = getLineNum(word, minLinNum)
+        curLineNum = getLineNum(word, minLinNum)   # stops searching at min
 
         # either word not found in txt file
         # or word found later (lesser freq)
@@ -72,13 +69,13 @@ def highestFreqWord(words):
         else:
             highestWord = word
             minLinNum = curLineNum
-            
+
     return highestWord
         
 
 
 
-funnies = ["ade", "aid", "aide"]
+funnies = ["ade", "aid", "cannibalism"]
 
 for fun in funnies:
     print(fun, getFreq(fun))
