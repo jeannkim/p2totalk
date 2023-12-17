@@ -1,7 +1,7 @@
 // just working out the logic
 
 /**
- * Keypresses to symbols
+ * Keypresses to buttons
  *
  * Keybinds: same as Giftscop
  * 
@@ -47,10 +47,30 @@ const keyMaps = {
 }
 
 document.addEventListener('keydown', (event) => {
-   const output = document.getElementById('output');
+   const output = document.getElementById('keypress');
+   const allpresses = document.getElementById('allpresses');
    const button = keyMaps[event.key];
-   output.textContent = button ? button : 'Not valid button';
+   const gotButton = button ? button : 'INVALID';
+   // print the button press
+   output.textContent = gotButton;
+   allpresses.textContent = allpresses.textContent + ' ' + gotButton;
 });
+
+
+/**
+ * 
+ */
+ // initialize lists
+ const faceButtons = ["TRIANGLE", "SQUARE", "X", "CIRCLE"];
+ const dPad = ["UP", "LEFT", "DOWN", "RIGHT"];
+ const start = ["START"];
+
+ const firstInput = faceButtons + dPad + start;
+ 
+ const shoulderButtons = ["L2", "L1", "R1", "R2"];
+ 
+ const secondInput = shoulderButtons + ""; // no input = empty string???
+
 
 /**
  * First input is paired with (or not with) the second input
@@ -72,16 +92,6 @@ document.addEventListener('keydown', (event) => {
 
 //  import { permutations } from 'itertools';
   
-//  // initialize lists
-//  const faceButtons = ["TRIANGLE", "SQUARE", "X", "CIRCLE"];
-//  const dPad = ["UP", "LEFT", "DOWN", "RIGHT"];
-//  const start = ["START"];
-
-//  const firstInput = faceButtons + dPad + start;
- 
-//  const shoulderButtons = ["L2", "L1", "R1", "R2"];
- 
-//  const secondInput = shoulderButtons + ""; // no input = empty string???
 
 //  console.log(firstInput);
   
