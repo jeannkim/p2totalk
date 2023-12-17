@@ -69,6 +69,52 @@ const invalidPairs = new Set([
    'Right,L2'
 ]);
 
+/**
+ * Map pairs to phonemes (in ARPABET)
+ * Using Table.png
+ */
+const arpaMaps = {
+   'X,R2': 'UW',
+   'X,R1': 'EY',
+   'X,L2': 'M',
+   'X,L1': 'S',
+   'X': 'AA', // we'll see
+   'Square,R2': 'P',
+   'Square,L2': 'N',
+   'Square,L1': 'Z',
+   'Square': 'AE', // dupe with down
+   'Circle,R2': 'T',
+   'Circle,R1': 'IY',
+   'Circle,L2': 'R',
+   'Triangle,R2': 'B',
+   'Triangle,R1': 'IH',
+   'Triangle,L2': 'L' ,
+   'Triangle,L1': 'SH',
+   'Triangle': 'A0', // we'll see
+   'Left,R2': 'TH',
+   'Left,L2': 'AH',
+   'Left,L1': 'NG',
+   'Left': 'EH', // no e
+   'Right,R2': 'DH',
+   'Right,R1': 'UH',
+   'Right,L1': 'G',
+   'Right': 'ER',
+   'Up,R2': 'F',
+   'Up,R1': 'OW',
+   'Up,L2': 'Y',
+   'Up,L1': 'JH',
+   'Up': 'AY',
+   'Down,R2': 'V',
+   'Down,L2': 'HH',
+   'Down,L1': 'K',
+   'Down': 'AE', // dup with square
+   'Start,R2': 'D',
+   'Start,L2': 'W',
+   'Start,L1': 'CH',
+   'Start': 'AH0' // what was the funny about this? AX0?
+}
+
+
 document.addEventListener('keydown', (event) => {
    let output = document.getElementById('keypress');
    let allPresses = document.getElementById('allpresses');
