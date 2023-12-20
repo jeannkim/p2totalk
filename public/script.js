@@ -113,12 +113,16 @@ const arpaMaps = {
    'Start,L1': 'CH',
    'Start': 'AH0' // what was the funny about this? AX0?
 }
+// store all phonemes inputted
+var allPhonemes = [];
 
 
 document.addEventListener('keydown', (event) => {
    let output = document.getElementById('keypress');
    let allPresses = document.getElementById('allpresses');
    let allPairs = document.getElementById('allpairs');
+   let phonemes = document.getElementById('phonemes');
+
    let button = keyMaps[event.key];
    
    // get button press, output button presses
@@ -143,11 +147,13 @@ document.addEventListener('keydown', (event) => {
             if (!invalidPairs.has(currButtonPair.toString())){
                // save previous pair
                allButtonPairs.push(currButtonPair);
-               // *just for printing
+               // *below: just for printing
                currButtonPair.forEach(function(button) {
                   allPairs.textContent = allPairs.textContent + ' ' + button;
                });
+               allPhonemes.push(arpaMaps[currButtonPair]);
                allPairs.textContent = allPairs.textContent + ' / ';
+               phonemes.textContent = phonemes.textContent + ' ' + arpaMaps[currButtonPair];
             }
             // empty the array
             currButtonPair = [];
@@ -157,36 +163,3 @@ document.addEventListener('keydown', (event) => {
       }
    }
 });
-
-/**
- * build the table of combinations (translate each combination to corresponding phoneme)
- * Second, figure out how to look up these phonemes in a table
- * Third, translate the phoneme combinations into words using some kind of dictionary
- */
-
-/**
- * Build the table of combinations
- * https://www.geeksforgeeks.org/python-program-to-get-all-unique-combinations-of-two-lists/
- */
-
-//  import { permutations } from 'itertools';
-  
-
-//  console.log(firstInput);
-  
-//  // create empty (variable) list to store the combinations
-//  var unique_combinations = [];
-  
-//  // Getting all permutations of list_1
-// // with length of list_2
-//  var permut = itertools.permutations(firstInput, len(secondInput));
-  
-//  // zip() is called to pair each permutation
-//  // and shorter list element into combination
-//  for (comb in permut){
-//     zipped = zip(comb, list_2);
-//     unique_combinations.push(list(zipped));
-//  }
-     
-  
-//  console.log(unique_combinations);
