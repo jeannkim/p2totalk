@@ -59,14 +59,14 @@ const keyMaps = {
 */
 var currButtonPair = [];
 var allButtonPairs = [];
-const secondInputs = new Set(['L1', 'L2', 'R1', 'R2']);
+const prefixes = new Set(['L1', 'L2', 'R1', 'R2']);
 // in strings and not arrays because JS compares arrays by ref
 const invalidPairs = new Set([
-   'Square,R1', 
-   'Circle,L1', 
+   'R1,Square', 
+   'L1,Circle', 
    'Circle', 
-   'Left,R1',
-   'Right,L2'
+   'R1,Left',
+   'L2,Right'
 ]);
 
 /**
@@ -74,43 +74,43 @@ const invalidPairs = new Set([
  * Using Table.png
  */
 const arpaMaps = {
-   'X,R2': 'UW',
-   'X,R1': 'EY',
-   'X,L2': 'M',
-   'X,L1': 'S',
+   'R2,X': 'UW',
+   'R1,X': 'EY',
+   'L2,X': 'M',
+   'L1,X': 'S',
    'X': 'AA', // we'll see
-   'Square,R2': 'P',
-   'Square,L2': 'N',
-   'Square,L1': 'Z',
+   'R2,Square': 'P',
+   'L2,Square': 'N',
+   'L1,Square': 'Z',
    'Square': 'AE', // dupe with down
-   'Circle,R2': 'T',
-   'Circle,R1': 'IY',
-   'Circle,L2': 'R',
-   'Triangle,R2': 'B',
-   'Triangle,R1': 'IH',
-   'Triangle,L2': 'L' ,
-   'Triangle,L1': 'SH',
+   'R2,Circle': 'T',
+   'R1,Circle': 'IY',
+   'L2,Circle': 'R',
+   'R2,Triangle': 'B',
+   'R1,Triangle': 'IH',
+   'L2,Triangle': 'L' ,
+   'L1,Triangle': 'SH',
    'Triangle': 'A0', // we'll see
-   'Left,R2': 'TH',
-   'Left,L2': 'AH',
-   'Left,L1': 'NG',
+   'R2,Left': 'TH',
+   'L2,Left': 'AH',
+   'L1,Left': 'NG',
    'Left': 'EH', // no e
-   'Right,R2': 'DH',
-   'Right,R1': 'UH',
-   'Right,L1': 'G',
+   'R2,Right': 'DH',
+   'R1,Right': 'UH',
+   'L1,Right': 'G',
    'Right': 'ER',
-   'Up,R2': 'F',
-   'Up,R1': 'OW',
-   'Up,L2': 'Y',
-   'Up,L1': 'JH',
+   'R2,Up': 'F',
+   'R1,Up': 'OW',
+   'L2,Up': 'Y',
+   'L1,Up': 'JH',
    'Up': 'AY',
-   'Down,R2': 'V',
-   'Down,L2': 'HH',
-   'Down,L1': 'K',
+   'R2,Down': 'V',
+   'L2,Down': 'HH',
+   'L1,Down': 'K',
    'Down': 'AE', // dup with square
-   'Start,R2': 'D',
-   'Start,L2': 'W',
-   'Start,L1': 'CH',
+   'R2,Start': 'D',
+   'L2,Start': 'W',
+   'L1,Start': 'CH',
    'Start': 'AH0' // what was the funny about this? AX0?
 }
 
@@ -128,7 +128,7 @@ document.addEventListener('keydown', (event) => {
 
    // second input: just add button as second value
    if (currButton != 'INVALID'){
-      if (secondInputs.has(currButton)){
+      if (prefixes.has(currButton)){
          // can only add as second input
          if (currButtonPair.length == 1){
             currButtonPair.push(currButton);
