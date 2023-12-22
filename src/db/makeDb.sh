@@ -1,2 +1,2 @@
-rm phoneme_db.sqlite
+#rm *.sqlite
 python3 db.py

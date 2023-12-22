@@ -75,7 +75,7 @@ def highestFreqWord(words):
 
 
 
-funnies = ["ade", "aid", "cannibalism"]
+funnies = ["ate", "aydt", "eight"]
 
 for fun in funnies:
     print(fun, getFreq(fun))
