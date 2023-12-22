@@ -130,17 +130,27 @@ document.addEventListener('keydown', (event) => {
    output.textContent = currButton;
    allPresses.textContent = allPresses.textContent + ' ' + currButton;
 
-   // second input: just add button as second value
+   // prefix: add as first value of cBP
+   // root: if cBP empty add it and that is over
+
+   //    check how many things cBP has in it
+   //    if nothing, add current press
+   //    if 1, check if cBP[0] is in prefixes
+   //          if it's a prefix, only add roots. for another prefix, flush
+   //          if it's a root, flush
+   //    if 2, flush
+
    if (currButton != 'INVALID'){
-      if (prefixes.has(currButton)){
-         // can only add as second input
-         if (currButtonPair.length == 1){
-            currButtonPair.push(currButton);
-         }
+      if (currButtonPair.length == 0){
+         currButtonPair.push(currButton);
       }
-      else { // first input
-         // if there is anything in the curr pair, flush it
-         if (currButtonPair.length > 0){
+      else {
+         // flush the buffer
+         // flush case (make sure pair is valid):
+         //    1 thing in pair, thing is root
+         //    2 things in pair
+         if ((currButtonPair.length == 1 && !prefixes.has(currButtonPair[0])
+         || currButtonPair.length > 1) && !invalidPairs.has(currButtonPair)){
             // check if the curr pair is valid
             console.log(currButtonPair.toString());
             console.log(!invalidPairs.has(currButtonPair.toString()));
@@ -158,8 +168,12 @@ document.addEventListener('keydown', (event) => {
             // empty the array
             currButtonPair = [];
          }
-         // add to pair
-         currButtonPair.push(currButton); // add curr
+         // adding to pair
+         // don't add a prefix if there is currently a prefix 
+         if (!(currButtonPair.length == 1 && prefixes.has(currButton))){
+            currButtonPair.push(currButton); // add curr
+         }
       }
    }
+   
 });
