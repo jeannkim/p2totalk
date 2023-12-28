@@ -41,7 +41,7 @@ const keyMaps = {
    'z': 'L2',
    'x': 'L1',
    'c': 'R1',
-   'v': 'R2'
+   'v': 'R2',
 }
 
 
@@ -66,7 +66,9 @@ const invalidPairs = new Set([
    'L1,Circle', 
    'Circle', 
    'R1,Left',
-   'L2,Right'
+   'L2,Right',
+   'R1,Down',
+   'R1,Start'
 ]);
 
 /**
@@ -124,9 +126,11 @@ document.addEventListener('keydown', (event) => {
    let phonemes = document.getElementById('phonemes');
 
    let button = keyMaps[event.key];
-   
    // get button press, output button presses
    let currButton = button ? button : 'INVALID';
+   if (event.key == ' ') {
+      currButton = 'SELECT';
+   }
    output.textContent = currButton;
    allPresses.textContent = allPresses.textContent + ' ' + currButton;
 
