@@ -125,57 +125,92 @@ document.addEventListener('keydown', (event) => {
    let allPairs = document.getElementById('allpairs');
    let phonemes = document.getElementById('phonemes');
 
-   let button = keyMaps[event.key];
-   // get button press, output button presses
-   let currButton = button ? button : 'INVALID';
-   if (event.key == ' ') {
-      currButton = 'SELECT';
-   }
-   output.textContent = currButton;
-   allPresses.textContent = allPresses.textContent + ' ' + currButton;
+   if (event.key == ' ') { // submit phoneme
 
-   // prefix: add as first value of cBP
-   // root: if cBP empty add it and that is over
-
-   //    check how many things cBP has in it
-   //    if nothing, add current press
-   //    if 1, check if cBP[0] is in prefixes
-   //          if it's a prefix, only add roots. for another prefix, flush
-   //          if it's a root, flush
-   //    if 2, flush
-
-   if (currButton != 'INVALID'){
-      if (currButtonPair.length == 0){
-         currButtonPair.push(currButton);
+      // flush current buffer if there is anything
+      if (!invalidPairs.has(currButtonPair.toString())){
+         // save previous pair
+         allButtonPairs.push(currButtonPair);
+         // *below: just for printing
+         currButtonPair.forEach(function(button) {
+            allPairs.textContent = allPairs.textContent + ' ' + button;
+         });
+         allPhonemes.push(arpaMaps[currButtonPair]);
+         allPairs.textContent = allPairs.textContent + ' / ';
+         phonemes.textContent = phonemes.textContent + ' ' + arpaMaps[currButtonPair];         
       }
-      else {
-         // flush the buffer
-         // flush case (make sure pair is valid):
-         //    1 thing in pair, thing is root
-         //    2 things in pair
-         if ((currButtonPair.length == 1 && !prefixes.has(currButtonPair[0])
-         || currButtonPair.length > 1) && !invalidPairs.has(currButtonPair)){
-            // check if the curr pair is valid
-            console.log(currButtonPair.toString());
-            console.log(!invalidPairs.has(currButtonPair.toString()));
-            if (!invalidPairs.has(currButtonPair.toString())){
-               // save previous pair
-               allButtonPairs.push(currButtonPair);
-               // *below: just for printing
-               currButtonPair.forEach(function(button) {
-                  allPairs.textContent = allPairs.textContent + ' ' + button;
-               });
-               allPhonemes.push(arpaMaps[currButtonPair]);
-               allPairs.textContent = allPairs.textContent + ' / ';
-               phonemes.textContent = phonemes.textContent + ' ' + arpaMaps[currButtonPair];
-            }
-            // empty the array
-            currButtonPair = [];
+      currButtonPair = [];
+      // get feedback
+      fetch('/get-word', {
+         method: 'POST',
+         headers: {
+             'Content-Type': 'application/json'
+         },
+         body: JSON.stringify({
+             phonemes: allPhonemes.join(' ')
+         })
+     })
+     .then(response => response.json())
+     .then(data => {
+         console.log(data);
+     })
+     .catch(error => {
+         console.error('Error:', error);
+     });
+     // flush allPhonemes
+     allPhonemes = [];
+   }
+   else {
+      let button = keyMaps[event.key];
+      // get button press, output button presses
+      let currButton = button ? button : 'INVALID';
+   
+      output.textContent = currButton;
+      allPresses.textContent = allPresses.textContent + ' ' + currButton;
+   
+      // prefix: add as first value of cBP
+      // root: if cBP empty add it and that is over
+   
+      //    check how many things cBP has in it
+      //    if nothing, add current press
+      //    if 1, check if cBP[0] is in prefixes
+      //          if it's a prefix, only add roots. for another prefix, flush
+      //          if it's a root, flush
+      //    if 2, flush
+   
+      if (currButton != 'INVALID'){
+         if (currButtonPair.length == 0){
+            currButtonPair.push(currButton);
          }
-         // adding to pair
-         // don't add a prefix if there is currently a prefix 
-         if (!(currButtonPair.length == 1 && prefixes.has(currButton))){
-            currButtonPair.push(currButton); // add curr
+         else {
+            // flush the buffer
+            // flush case (make sure pair is valid):
+            //    1 thing in pair, thing is root
+            //    2 things in pair
+            if ((currButtonPair.length == 1 && !prefixes.has(currButtonPair[0])
+            || currButtonPair.length > 1) && !invalidPairs.has(currButtonPair)){
+               // check if the curr pair is valid
+               console.log(currButtonPair.toString());
+               console.log(!invalidPairs.has(currButtonPair.toString()));
+               if (!invalidPairs.has(currButtonPair.toString())){
+                  // save previous pair
+                  allButtonPairs.push(currButtonPair);
+                  // *below: just for printing
+                  currButtonPair.forEach(function(button) {
+                     allPairs.textContent = allPairs.textContent + ' ' + button;
+                  });
+                  allPhonemes.push(arpaMaps[currButtonPair]);
+                  allPairs.textContent = allPairs.textContent + ' / ';
+                  phonemes.textContent = phonemes.textContent + ' ' + arpaMaps[currButtonPair];
+               }
+               // empty the array
+               currButtonPair = [];
+            }
+            // adding to pair
+            // don't add a prefix if there is currently a prefix 
+            if (!(currButtonPair.length == 1 && prefixes.has(currButton))){
+               currButtonPair.push(currButton); // add curr
+            }
          }
       }
    }

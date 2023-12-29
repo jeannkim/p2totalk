@@ -19,18 +19,11 @@ app.get('/', (req, res) => {
     res.sendFile(path.join(__dirname, 'public/index.html'));
 });
 
-// Endpoint to handle the form submission
-app.post('/submit-text', (req, res) => {
-    //console.log('Text received:', req.body.textInput);
-    res.send(req.body.textInput);
-  });
-
-
 app.post('/get-word', async (req, res) => {
     console.log("SERVER RECEIVED: ", req.body); // Add this line to log the request body
     try {
-        const feedback = await getWord(req.body);
-        res.json({ feedback });
+        const translation = await getWord(req.body);
+        res.json({ translation });
     } catch (error) {
         res.status(500).json({ error: error.message });
     }
