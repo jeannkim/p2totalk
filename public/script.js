@@ -68,7 +68,8 @@ const invalidPairs = new Set([
    'R1,Left',
    'L2,Right',
    'R1,Down',
-   'R1,Start'
+   'R1,Start',
+   ''
 ]);
 
 /**
@@ -124,12 +125,15 @@ document.addEventListener('keydown', (event) => {
    let allPresses = document.getElementById('allpresses');
    let allPairs = document.getElementById('allpairs');
    let phonemes = document.getElementById('phonemes');
+   let wordDisplay = document.getElementById('word');
+
 
    if (event.key == ' ') { // submit phoneme
+      console.log('currButtonPair: ', currButtonPair);
 
       // flush current buffer if there is anything
-      if (!invalidPairs.has(currButtonPair.toString())){
-         // save previous pair
+      if (currButtonPair.length != 0 &&!invalidPairs.has(currButtonPair.toString())){
+         // // save previous pair
          allButtonPairs.push(currButtonPair);
          // *below: just for printing
          currButtonPair.forEach(function(button) {
@@ -140,6 +144,7 @@ document.addEventListener('keydown', (event) => {
          phonemes.textContent = phonemes.textContent + ' ' + arpaMaps[currButtonPair];         
       }
       currButtonPair = [];
+      console.log('allPhonemes: ', allPhonemes);
       // get feedback
       fetch('/get-word', {
          method: 'POST',
@@ -149,16 +154,19 @@ document.addEventListener('keydown', (event) => {
          body: JSON.stringify({
              phonemes: allPhonemes.join(' ')
          })
-     })
-     .then(response => response.json())
-     .then(data => {
-         console.log(data);
-     })
-     .catch(error => {
-         console.error('Error:', error);
-     });
-     // flush allPhonemes
-     allPhonemes = [];
+      })
+      .then(response => response.json())
+      .then(data => {
+            console.log(data);
+            let formattedWord = data.translation.charAt(0).toUpperCase() 
+               + data.translation.slice(1);
+            wordDisplay.textContent = formattedWord;
+      })
+      .catch(error => {
+            console.error('Error:', error);
+      });
+      // flush allPhonemes
+      allPhonemes = [];
    }
    else {
       let button = keyMaps[event.key];

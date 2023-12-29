@@ -4,8 +4,26 @@ const path = require('path');
 
 const app = express();
 app.use(express.json()); // This line is crucial
+const sqlite3 = require('sqlite3').verbose();
+const db = new sqlite3.Database('./src/db/phonemes.sqlite'); // . is @ server.js
 
-const getWord = require('./src/translate');
+
+// Promise: allows await
+const getWord = async (input) => {
+    phonemes = input.phonemes;
+    console.log(phonemes);
+    return new Promise((resolve, reject) => {
+        db.all('SELECT word FROM unique_phonemes_words WHERE phonemes = ?', [phonemes], (err, rows) => {
+            if (err) {
+                reject(err);
+            } else if (rows.length === 0) {
+                resolve('Not In Table');
+            } else {
+                resolve(rows[0].word);
+            }
+        });
+    });
+};
 
 
 // Serve static files (CSS, client-side JS, images, etc.)
