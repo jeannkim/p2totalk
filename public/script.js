@@ -44,6 +44,13 @@ const keyMaps = {
    'v': 'R2',
 }
 
+const disabledKeys = new Set([
+   'Enter', 
+   'ArrowUp', 
+   'ArrowLeft',
+   'ArrowDown',
+   'ArrowRight',
+]);
 
 /**
  * Split by button press combinations
@@ -119,17 +126,27 @@ const arpaMaps = {
 // store all phonemes inputted
 var allPhonemes = [];
 
+// sounds
+const soundPath = 'assets/sounds/';
+var connectSound = new Audio(soundPath + 'Connect.mp3');
 
 document.addEventListener('keydown', (event) => {
+
    let output = document.getElementById('keypress');
    let allPresses = document.getElementById('allpresses');
    let allPairs = document.getElementById('allpairs');
    let phonemes = document.getElementById('phonemes');
+   
    let wordDisplay = document.getElementById('word');
-
+   let buttonDisplay = document.getElementById('buttons');
 
    if (event.key == ' ') { // submit phoneme
       console.log('currButtonPair: ', currButtonPair);
+      event.preventDefault(); // prevent scrolling
+
+      // play sound
+      var talkSound = new Audio(soundPath + 'Talk-Player.mp3');
+      talkSound.play();
 
       // flush current buffer if there is anything
       if (currButtonPair.length != 0 &&!invalidPairs.has(currButtonPair.toString())){
@@ -145,7 +162,7 @@ document.addEventListener('keydown', (event) => {
       }
       currButtonPair = [];
       console.log('allPhonemes: ', allPhonemes);
-      // get feedback
+      // translate the phonemes
       fetch('/get-word', {
          method: 'POST',
          headers: {
@@ -156,7 +173,7 @@ document.addEventListener('keydown', (event) => {
          })
       })
       .then(response => response.json())
-      .then(data => {
+      .then(data => {   // word got; or "Not In Table"
             console.log(data);
             let formattedWord = data.translation.charAt(0).toUpperCase() 
                + data.translation.slice(1);
@@ -167,6 +184,8 @@ document.addEventListener('keydown', (event) => {
       });
       // flush allPhonemes
       allPhonemes = [];
+      // clear buttons
+      buttonDisplay.innerHTML = '';
    }
    else {
       let button = keyMaps[event.key];
@@ -175,7 +194,8 @@ document.addEventListener('keydown', (event) => {
    
       output.textContent = currButton;
       allPresses.textContent = allPresses.textContent + ' ' + currButton;
-   
+
+      
       // prefix: add as first value of cBP
       // root: if cBP empty add it and that is over
    
@@ -187,6 +207,22 @@ document.addEventListener('keydown', (event) => {
       //    if 2, flush
    
       if (currButton != 'INVALID'){
+         // play sound
+         var buttonSound = new Audio(soundPath + 'Button.mp3');
+         buttonSound.play();
+
+         // display current button
+         let currButtonSpritePath = 'assets/sprites/PS-'+ currButton + '.png';
+         console.log(currButtonSpritePath);
+
+         // disable default if key that scrolls
+         if (disabledKeys.has(event.key)){
+            event.preventDefault(); // prevent scrolling
+         }
+
+         buttonDisplay.innerHTML = buttonDisplay.innerHTML + 
+            '<img src=\"' + currButtonSpritePath + '\" class=\"buttonSprite\">';
+
          if (currButtonPair.length == 0){
             currButtonPair.push(currButton);
          }

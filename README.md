@@ -40,6 +40,7 @@ See [phonetic table](https://github.com/jeanniekim/p2totalk/blob/main/table.png?
 
 ## Testing
 Testing will be done using the [canon usage](https://petscop.fandom.com/wiki/Gamepad_language/Vocabulary) of the Gamepage language in Petscop.
+- **Canon usage example:** [Petscop 11](https://youtu.be/nXHUw2nw6aA?si=1HWbgGZzUOvLm14g&t=807)
 
 
 ## Dictionary
@@ -49,3 +50,4 @@ Using the [CMU Pronouncing Dictionary](https://en.wikipedia.org/wiki/CMU_Pronoun
 - Sprites: 
     - Buttons: [Petscop Wiki](https://petscop.fandom.com/wiki/P2_to_TALK)
 - Fonts: [PetscopWide](https://giftscop.com/etc/fonts)
+

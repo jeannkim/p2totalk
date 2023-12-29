@@ -1,0 +1,5 @@
+button sprites: https://petscop.fandom.com/wiki/Petscop_11
+
+converted from webp to png using:
+
+parallel dwebp {} -o {.}.png ::: *.webp

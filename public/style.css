@@ -14,3 +14,19 @@ h1 {
     font-family: 'PetscopWide';
     font-weight: normal;
 }
+#buttons {
+    max-width: 800px;
+    margin: 0 auto; /* Centers the flex container horizontally */
+    display: flex; /* Activate Flexbox layout */
+    flex-wrap: wrap; /* Optional: Allows items to wrap */
+    justify-content: center; /* Horizontally centers the flex items */
+    align-items: center; /* Vertically centers the flex items */
+}
+.buttonSprite {
+    padding: 2px;
+}
+
+#word {
+    font-family: 'PetscopWide';
+    font-size: large;
+}
