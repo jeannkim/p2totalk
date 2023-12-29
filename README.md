@@ -50,4 +50,4 @@ Using the [CMU Pronouncing Dictionary](https://en.wikipedia.org/wiki/CMU_Pronoun
 - Sprites: 
     - Buttons: [Petscop Wiki](https://petscop.fandom.com/wiki/P2_to_TALK)
 - Fonts: [PetscopWide](https://giftscop.com/etc/fonts)
-
+- Sounts: [Tony Domenico - Petscop Soundtrack](https://petscop.bandcamp.com/album/petscop-soundtrack)
