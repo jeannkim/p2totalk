@@ -45,3 +45,7 @@ Testing will be done using the [canon usage](https://petscop.fandom.com/wiki/Gam
 ## Dictionary
 Using the [CMU Pronouncing Dictionary](https://en.wikipedia.org/wiki/CMU_Pronouncing_Dictionary), specifically [cmudict.dict](https://github.com/cmusphinx/cmudict/blob/master/cmudict.dict) from [cmusphinx](https://github.com/cmusphinx).
 
+## Sources
+- Sprites: 
+    - Buttons: [Petscop Wiki](https://petscop.fandom.com/wiki/P2_to_TALK)
+- Fonts: [PetscopWide](https://giftscop.com/etc/fonts)

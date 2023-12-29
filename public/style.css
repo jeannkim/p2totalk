@@ -1,0 +1,16 @@
+@font-face {
+    font-family: 'PetscopWide';
+    src: url("./assets/fonts/PetscopWide.ttf") format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+body {
+    color: white;
+    background-color: black;
+    text-align: center;
+}
+h1 {
+    font-family: 'PetscopWide';
+    font-weight: normal;
+}
