@@ -130,6 +130,7 @@ var allPhonemes = [];
 const soundPath = 'assets/sounds/';
 var connectSound = new Audio(soundPath + 'Connect.mp3');
 
+
 document.addEventListener('keydown', (event) => {
 
    let output = document.getElementById('keypress');
@@ -177,7 +178,13 @@ document.addEventListener('keydown', (event) => {
             console.log(data);
             let formattedWord = data.translation.charAt(0).toUpperCase() 
                + data.translation.slice(1);
+            // fade in
+            wordDisplay.classList.remove('fade');
             wordDisplay.textContent = formattedWord;
+            // fade out after 3 secs
+            setTimeout(() => {
+               wordDisplay.classList.add('fade');
+           }, 3000); // 3000 milliseconds = 3 seconds
       })
       .catch(error => {
             console.error('Error:', error);
@@ -260,3 +267,5 @@ document.addEventListener('keydown', (event) => {
    }
    
 });
+
+

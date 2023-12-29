@@ -29,4 +29,14 @@ h1 {
 #word {
     font-family: 'PetscopWide';
     font-size: large;
+    opacity: 1;
+    transition: opacity 1s;
+}
+
+.fade {
+    opacity: 0 !important;
+}
+
+.testing {
+    display: none;
 }
