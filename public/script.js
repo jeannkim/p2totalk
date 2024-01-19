@@ -125,13 +125,14 @@ const arpaMaps = {
 }
 // store all phonemes inputted
 var allPhonemes = [];
+var inputs = [];  // button inputs pressed
 
 // sounds
 const soundPath = 'assets/sounds/';
 var connectSound = new Audio(soundPath + 'Connect.mp3');
 
 
-// parse the array of (valid) inputs
+// parse the array of  (valid) inputs
 // param: array of inputs
 // return: array of equivalent phonemes OR empty array (error; Not In Table)
 function inputsToPhonemes(inputs) {
@@ -182,46 +183,50 @@ function inputsToPhonemes(inputs) {
    return thePhonemes;  // successful translation
 }
 
+// display text in the Way
+function display(toDisplay){
+   let wordDisplay = document.getElementById('word');
+   // fade in
+   wordDisplay.classList.remove('fade');
+   wordDisplay.textContent = toDisplay;
+   // fade out after 3 secs
+   setTimeout(() => {
+      wordDisplay.classList.add('fade');
+   }, 3000); // 3000 milliseconds = 3 seconds
+}
+
 document.addEventListener('keydown', (event) => {
 
-   let output = document.getElementById('keypress');
-   let allPresses = document.getElementById('allpresses');
-   let allPairs = document.getElementById('allpairs');
-   let phonemes = document.getElementById('phonemes');
+   let keypressDisplay = document.getElementById('keypress');
+   let allPressesDisplay = document.getElementById('allpresses');
    
-   let wordDisplay = document.getElementById('word');
    let buttonDisplay = document.getElementById('buttons');
 
-   if (event.key == ' ') { // submit phonemes
-      console.log('currButtonPair: ', currButtonPair);
+   if (event.key == ' ' && inputs.length > 0) { // submit phonemes
+   
       event.preventDefault(); // prevent scrolling
+      allPressesDisplay.textContent = allPressesDisplay.textContent + ' |';
 
       // play sound
       var talkSound = new Audio(soundPath + 'Talk-Player.mp3');
       talkSound.play();
 
-      // flush current buffer if there is anything
-      if (currButtonPair.length != 0 &&!invalidPairs.has(currButtonPair.toString())){
-         // // save previous pair
-         allButtonPairs.push(currButtonPair);
-         // *below: just for printing
-         currButtonPair.forEach(function(button) {
-            allPairs.textContent = allPairs.textContent + ' ' + button;
-         });
-         allPhonemes.push(arpaMaps[currButtonPair]);
-         allPairs.textContent = allPairs.textContent + ' / ';
-         phonemes.textContent = phonemes.textContent + ' ' + arpaMaps[currButtonPair];         
+      // translate the inputs
+      let inputPhonemes = inputsToPhonemes(inputs);
+      console.log(inputPhonemes);
+      
+      if (inputPhonemes.length < 1){
+         display('Not In Table');
       }
-      currButtonPair = [];
-      console.log('allPhonemes: ', allPhonemes);
+
       // translate the phonemes
       fetch('/get-word', {
          method: 'POST',
          headers: {
-             'Content-Type': 'application/json'
+            'Content-Type': 'application/json'
          },
          body: JSON.stringify({
-             phonemes: allPhonemes.join(' ')
+            phonemes: inputPhonemes.join(' ')
          })
       })
       .then(response => response.json())
@@ -229,42 +234,30 @@ document.addEventListener('keydown', (event) => {
             console.log(data);
             let formattedWord = data.translation.charAt(0).toUpperCase() 
                + data.translation.slice(1);
-            // fade in
-            wordDisplay.classList.remove('fade');
-            wordDisplay.textContent = formattedWord;
-            // fade out after 3 secs
-            setTimeout(() => {
-               wordDisplay.classList.add('fade');
-           }, 3000); // 3000 milliseconds = 3 seconds
+            display(formattedWord);
       })
       .catch(error => {
             console.error('Error:', error);
       });
-      // flush allPhonemes
-      allPhonemes = [];
+
       // clear buttons
       buttonDisplay.innerHTML = '';
+      inputs = [];   // reset inputs
+
+
    }
    else {
       let button = keyMaps[event.key];
       // get button press, output button presses
       let currButton = button ? button : 'INVALID';
    
-      output.textContent = currButton;
-      allPresses.textContent = allPresses.textContent + ' ' + currButton;
-
-      
-      // prefix: add as first value of cBP
-      // root: if cBP empty add it and that is over
-   
-      //    check how many things cBP has in it
-      //    if nothing, add current press
-      //    if 1, check if cBP[0] is in prefixes
-      //          if it's a prefix, only add roots. for another prefix, flush
-      //          if it's a root, flush
-      //    if 2, flush
+      keypressDisplay.textContent = currButton;
+      allPressesDisplay.textContent = allPressesDisplay.textContent + ' ' + currButton;
    
       if (currButton != 'INVALID'){
+         // add to inputs
+         inputs.push(currButton);
+
          // play sound
          var buttonSound = new Audio(soundPath + 'Button.mp3');
          buttonSound.play();
@@ -280,40 +273,6 @@ document.addEventListener('keydown', (event) => {
 
          buttonDisplay.innerHTML = buttonDisplay.innerHTML + 
             '<img src=\"' + currButtonSpritePath + '\" class=\"buttonSprite\">';
-
-         if (currButtonPair.length == 0){
-            currButtonPair.push(currButton);
-         }
-         else {
-            // flush the buffer
-            // flush case (make sure pair is valid):
-            //    1 thing in pair, thing is root
-            //    2 things in pair
-            if ((currButtonPair.length == 1 && !prefixes.has(currButtonPair[0])
-            || currButtonPair.length > 1) && !invalidPairs.has(currButtonPair)){
-               // check if the curr pair is valid
-               console.log(currButtonPair.toString());
-               console.log(!invalidPairs.has(currButtonPair.toString()));
-               if (!invalidPairs.has(currButtonPair.toString())){
-                  // save previous pair
-                  allButtonPairs.push(currButtonPair);
-                  // *below: just for printing
-                  currButtonPair.forEach(function(button) {
-                     allPairs.textContent = allPairs.textContent + ' ' + button;
-                  });
-                  allPhonemes.push(arpaMaps[currButtonPair]);
-                  allPairs.textContent = allPairs.textContent + ' / ';
-                  phonemes.textContent = phonemes.textContent + ' ' + arpaMaps[currButtonPair];
-               }
-               // empty the array
-               currButtonPair = [];
-            }
-            // adding to pair
-            // don't add a prefix if there is currently a prefix 
-            if (!(currButtonPair.length == 1 && prefixes.has(currButton))){
-               currButtonPair.push(currButton); // add curr
-            }
-         }
       }
    }
    
