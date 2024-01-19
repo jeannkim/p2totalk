@@ -1,3 +1,41 @@
+
+
+function addMessage(message) {
+   var chatbox = document.getElementById("chatbox");
+   var newMessage = document.createElement("div");
+
+   // Apply moveUp class to each existing message
+   var existingMessages = chatbox.getElementsByClassName("message");
+   for (var i = 0; i < existingMessages.length; i++) {
+       existingMessages[i].classList.add("moveUp");
+       existingMessages[i].style.transform = `translateY(-${newMessage.offsetHeight}px)`;
+   }
+
+   newMessage.classList.add("message");
+   newMessage.innerText = message;
+   chatbox.prepend(newMessage); // Adds the new message at the top
+
+   // Remove the moveUp class after the animation
+   setTimeout(function() {
+       for (var i = 0; i < existingMessages.length; i++) {
+           existingMessages[i].classList.remove("moveUp");
+           existingMessages[i].style.transform = 'translateY(0)';
+       }
+   }, 500); // 500ms matches the CSS animation duration
+
+   // Fade out the new message after a specific time
+   setTimeout(() => {
+      newMessage.style.animation = 'fadeOut 3s forwards';
+
+      // Remove the message from the DOM after the fade-out animation
+      setTimeout(() => {
+          chatbox.removeChild(newMessage);
+      }, 3000); // 1 second for the fade-out animation
+  }, 1500); 
+}
+
+
+
 /**
  * Keypresses to buttons
  *
@@ -183,67 +221,60 @@ function inputsToPhonemes(inputs) {
    return thePhonemes;  // successful translation
 }
 
-// display text in the Way
-function display(toDisplay){
-   let wordDisplay = document.getElementById('word');
-   // fade in
-   wordDisplay.classList.remove('fade');
-   wordDisplay.textContent = toDisplay;
-   // fade out after 3 secs
-   setTimeout(() => {
-      wordDisplay.classList.add('fade');
-   }, 3000); // 3000 milliseconds = 3 seconds
-}
+
 
 document.addEventListener('keydown', (event) => {
 
+
    let keypressDisplay = document.getElementById('keypress');
    let allPressesDisplay = document.getElementById('allpresses');
-   
    let buttonDisplay = document.getElementById('buttons');
 
-   if (event.key == ' ' && inputs.length > 0) { // submit phonemes
+   if (event.key == ' ') { // submit phonemes
    
       event.preventDefault(); // prevent scrolling
-      allPressesDisplay.textContent = allPressesDisplay.textContent + ' |';
 
-      // play sound
-      var talkSound = new Audio(soundPath + 'Talk-Player.mp3');
-      talkSound.play();
+      if (inputs.length > 0){
+         allPressesDisplay.textContent = allPressesDisplay.textContent + ' |';
 
-      // translate the inputs
-      let inputPhonemes = inputsToPhonemes(inputs);
-      console.log(inputPhonemes);
+         // play sound
+         var talkSound = new Audio(soundPath + 'Talk-Player.mp3');
+         talkSound.play();
+   
+         // translate the inputs
+         let inputPhonemes = inputsToPhonemes(inputs);
+         console.log(inputPhonemes);
+         
+         if (inputPhonemes.length < 1){
+            addMessage('Not In Table');
+         }
+         else {
+            // translate the phonemes
+            fetch('/get-word', {
+               method: 'POST',
+               headers: {
+                  'Content-Type': 'application/json'
+               },
+               body: JSON.stringify({
+                  phonemes: inputPhonemes.join(' ')
+               })
+            })
+            .then(response => response.json())
+            .then(data => {   // word got; or "Not In Table"
+                  console.log(data);
+                  let formattedWord = data.translation.charAt(0).toUpperCase() 
+                     + data.translation.slice(1);
+                  addMessage(formattedWord);
       
-      if (inputPhonemes.length < 1){
-         display('Not In Table');
+            })
+            .catch(error => {
+                  console.error('Error:', error);
+            });
+         }
+         // clear buttons
+         buttonDisplay.innerHTML = '';
+         inputs = [];   // reset inputs   
       }
-
-      // translate the phonemes
-      fetch('/get-word', {
-         method: 'POST',
-         headers: {
-            'Content-Type': 'application/json'
-         },
-         body: JSON.stringify({
-            phonemes: inputPhonemes.join(' ')
-         })
-      })
-      .then(response => response.json())
-      .then(data => {   // word got; or "Not In Table"
-            console.log(data);
-            let formattedWord = data.translation.charAt(0).toUpperCase() 
-               + data.translation.slice(1);
-            display(formattedWord);
-      })
-      .catch(error => {
-            console.error('Error:', error);
-      });
-
-      // clear buttons
-      buttonDisplay.innerHTML = '';
-      inputs = [];   // reset inputs
-
 
    }
    else {
