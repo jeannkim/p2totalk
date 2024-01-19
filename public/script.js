@@ -135,37 +135,22 @@ var connectSound = new Audio(soundPath + 'Connect.mp3');
 // param: array of inputs
 // return: array of equivalent phonemes OR empty array (error; Not In Table)
 function inputsToPhonemes(inputs) {
-   
-   // how does this damn thing look like
-   // ex. 'R2' -> []
-   // ex. ['R2,' 'Square'] -> ['P'] 
-   // ex. ['R1', 'Square'] -> []
-   // ex. ['R2', 'Square', 'R1', 'Circle'] -> ['P','IY']
-
-   // if it is in prefixes, you must look for another thing after. 
-   // if there is no next thing, if the next thing is a prefix, or if the pair is invalid, []
-   
-   // if not a prefix, move on
-
    var thePhonemes = [];
 
    if (inputs.length < 1) {
       console.log("empty inputs submitted");
       return [];
    }
-   
+
    var inputHandled = false;   // if current input has been translated already 
 
    for (let i = 0; i < inputs.length; i++) {
-
       if (inputHandled){
          inputHandled = false;   // reset; lol this is like a lock
          continue;   // skip to next iteration
       }
-
       let currInput = inputs[i];
-
-      // this is prefix
+      // this is a prefix
       if (prefixes.has(currInput)){
          // invalid; prefix is last input
          if (i == inputs.length-1){
@@ -196,26 +181,6 @@ function inputsToPhonemes(inputs) {
    }
    return thePhonemes;  // successful translation
 }
-
-// how does this damn thing look like
-// ex. 'R2' -> []
-// ex. ['R2,' 'Square'] -> ['P'] 
-// ex. ['R1', 'Square'] -> []
-// ex. ['R2', 'Square', 'R1', 'Circle'] -> ['P','IY']
-
-console.log(inputsToPhonemes(['R2','Square'])); // ['P']
-console.log(inputsToPhonemes(['R2','Square','R1','Circle'])); // ['P','IY']
-console.log(inputsToPhonemes(['Square','R2','Square'])); // AE P
-console.log(inputsToPhonemes(['Square','R2','Square','Triangle'])); // AE P A0
-console.log(inputsToPhonemes(['Square','Triangle','R2','Square'])); // AE A0 P
-
-// errors
-console.log(inputsToPhonemes(['R2']));
-console.log(inputsToPhonemes(['R1','Square']));
-console.log(inputsToPhonemes(['Circle']));
-console.log(inputsToPhonemes(['Square','R1','Circle','R1']));
-
-
 
 document.addEventListener('keydown', (event) => {
 
