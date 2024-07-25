@@ -77,6 +77,8 @@ def setup(conn):
     final_data.to_sql('unique_phonemes_words', conn, if_exists='replace', index=False)
 
 
+
+
 if __name__ == "__main__":
 
     conn = init_setup()
