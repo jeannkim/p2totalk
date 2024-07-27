@@ -309,4 +309,15 @@ document.addEventListener('keydown', (event) => {
    
 });
 
-
+function showRightDiv() {
+   const rightDiv = document.getElementById('right-div');
+   const content = document.getElementById('content');
+   
+   if (rightDiv.classList.contains('visible')) {
+     rightDiv.classList.remove('visible');
+     content.style.marginRight = '0';
+   } else {
+     rightDiv.classList.add('visible');
+     content.style.marginRight = '50%';
+   }
+ }

@@ -6,62 +6,340 @@
     <title>Press P2 To Talk</title>
     <link rel="stylesheet" href="style.css">
     <script src="script.js"></script>
-
   </head>
   
-  <body  class="color-shift chromatic-aberration color-distortion">
-    <div>
-      <h1>Press P2 to TALK</h1>
-       <!-- Real Display -->
-      <br>
-      <div id="box">
-        <div id="chatbox"></div>
+  <body class="color-shift chromatic-aberration color-distortion">
+    <div id="container">
+      <div id="content">
+        <h1>Press P2 to TALK</h1>
+         <!-- Real Display -->
+        <br>
+        <div id="box">
+          <div id="chatbox"></div>
+        </div>
+        <div id="buttons"></div>
+        <!-- 
+        <img src="./assets/sprites/Paul_sprite.png" alt="Flowers in Chania">              
+        -->
+        <br>
+        <div id="word" class="fade"></div>
+        
+        <button onclick="showRightDiv()">READ ME</button>
+
+        <br>
+        <br>
+
+        <!-- Testing -->
+        <div id="keypress" class="testing">Press a key...</div>
+        <br>
+        <div id="allpresses" class="testing"></div>
+        <br>
+        <div id="allpairs" class="testing"></div>
+        <br>
+        <div id="phonemes" class="testing"></div>
+        <br>
+
+        <!-- Instructions -->
+        <br>
+        'Prefix' inputs (optional):<br>
+        * L2 (Z)<br>
+        * L1 (X)<br>
+        * R1 (C)<br>
+        * R2 (V)<br>
+        <br>
+        'Root' inputs:<br>
+        * Triangle (Up)<br>
+        * Square (Left)<br>
+        * Cross (Down)<br>
+        * Circle (Right)<br>
+        * Up (W)<br>
+        * Left (A)<br>
+        * Down (S)<br>
+        * Right (D)<br>
+        * Start (Enter)<br>
+        <br>
+        Submit word:<br>
+        * Select (Spacebar)<br>
       </div>
-      <div id="buttons"></div>
-      <!-- 
-      <img src="./assets/sprites/Paul_sprite.png" alt="Flowers in Chania">              
-      -->
 
-      <br>
-      <div id="word" class="fade"></div>
-      <br>
-      <br>
 
-      <!-- Testing -->
-      <div id="keypress" class="testing">Press a key...</div>
-      <br>
-      <div id="allpresses" class="testing"></div>
-      <br>
-      <div id="allpairs" class="testing"></div>
-      <br>
-      <div id="phonemes" class="testing"></div>
-      <br>
 
-      <!-- Instructions -->
-      <br>
-      'Prefix' inputs (optional):<br>
-      * L2 (Z)<br>
-      * L1 (X)<br>
-      * R1 (C)<br>
-      * R2 (V)<br>
-      <br>
-      'Root' inputs:<br>
-      * Triangle (Up)<br>
-      * Square (Left)<br>
-      * Cross (Down)<br>
-      * Circle (Right)<br>
-      * Up (W)<br>
-      * Left (A)<br>
-      * Down (S)<br>
-      * Right (D)<br>
-      * Start (Enter)<br>
-      <br>
-      Submit word:<br>
-      * Select (Spacebar)<br>
+      <div id="right-div" class="visible">
+        <div id="consonants">
+          Consonants<br>
+          <table>
+            <tr>
+              <td>
+                'b'<br>
+                /b/<br>
+                "<strong>b</strong>ad"<br>
+                <img src="./assets/sprites/PS-R2.png">
+                <img src="./assets/sprites/PS-Triangle.png">                         
+              </td>
+              <td>
+                'd'<br>
+                /d/<br>
+                "<strong>d</strong>ad"<br>
+                <img src="./assets/sprites/PS-R2.png">
+                <img src="./assets/sprites/PS-Start.png">                         
+              </td>
+              <td>
+                'f'<br>
+                /f/<br>
+                "<strong>f</strong>ad"<br>
+                <img src="./assets/sprites/PS-R2.png">
+                <img src="./assets/sprites/PS-Up.png">                         
+              </td>
+              <td>
+                'g'<br>
+                /g/<br>
+                "<strong>g</strong>od"<br>
+                <img src="./assets/sprites/PS-L1.png">
+                <img src="./assets/sprites/PS-Right.png">                         
+              </td>
+              <td>
+                'h'<br>
+                /h/<br>
+                "<strong>h</strong>ad"<br>
+                <img src="./assets/sprites/PS-L2.png">
+                <img src="./assets/sprites/PS-Down.png">                         
+              </td>
+            </tr>
+            <tr>
+              <td>
+                'j'<br>
+                /dʒ/<br>
+                "<strong>j</strong>ab"<br>
+                <img src="./assets/sprites/PS-L1.png">
+                <img src="./assets/sprites/PS-Up.png">                         
+              </td>
+              <td>
+                'k'<br>
+                /k/<br>
+                "<strong>c</strong>ar"<br>
+                <img src="./assets/sprites/PS-L1.png">
+                <img src="./assets/sprites/PS-Down.png">                         
+              </td>
+              <td>
+                'l'<br>
+                /l/<br>
+                "<strong>l</strong>ad"<br>
+                <img src="./assets/sprites/PS-L2.png">
+                <img src="./assets/sprites/PS-Triangle.png">                         
+              </td>
+              <td>
+                'm'<br>
+                /m/<br>
+                "<strong>m</strong>ad"<br>
+                <img src="./assets/sprites/PS-L2.png">
+                <img src="./assets/sprites/PS-X.png">                         
+              </td>
+              <td>
+                'n'<br>
+                /n/<br>
+                "<strong>n</strong>od"<br>
+                <img src="./assets/sprites/PS-L2.png">
+                <img src="./assets/sprites/PS-Square.png">                         
+              </td>
+            </tr>
+            <tr>
+              <td>
+                'p'<br>
+                /p/<br>
+                "<strong>p</strong>ad"<br>
+                <img src="./assets/sprites/PS-R2.png">
+                <img src="./assets/sprites/PS-Square.png">                         
+              </td>
+              <td>
+                'r'<br>
+                /r/<br>
+                "<strong>r</strong>ad"<br>
+                <img src="./assets/sprites/PS-L2.png">
+                <img src="./assets/sprites/PS-Circle.png">                         
+              </td>
+              <td>
+                's'<br>
+                /s/<br>
+                "<strong>s</strong>ad"<br>
+                <img src="./assets/sprites/PS-L1.png">
+                <img src="./assets/sprites/PS-X.png">                         
+              </td>
+              <td>
+                't'<br>
+                /t/<br>
+                "<strong>t</strong>ad"<br>
+                <img src="./assets/sprites/PS-R2.png">
+                <img src="./assets/sprites/PS-Circle.png">                         
+              </td>
+              <td>
+                'v'<br>
+                /v/<br>
+                "<strong>v</strong>an"<br>
+                <img src="./assets/sprites/PS-R2.png">
+                <img src="./assets/sprites/PS-Down.png">                         
+              </td>
+            </tr>
+            <tr>
+              <td>
+                'w'<br>
+                /w/<br>
+                "<strong>w</strong>as"<br>
+                <img src="./assets/sprites/PS-L2.png">
+                <img src="./assets/sprites/PS-Start.png">                         
+              </td>
+              <td>
+                'y'<br>
+                /y/<br>
+                "<strong>y</strong>ou"<br>
+                <img src="./assets/sprites/PS-L2.png">
+                <img src="./assets/sprites/PS-Up.png">                         
+              </td>
+              <td>
+                'z'<br>
+                /z/<br>
+                "<strong>z</strong>ip"<br>
+                <img src="./assets/sprites/PS-L1.png">
+                <img src="./assets/sprites/PS-X.png">                         
+              </td>
+              <td>
+                'th'<br>
+                /θ/<br>
+                "<strong>th</strong>at"<br>
+                <img src="./assets/sprites/PS-R2.png">
+                <img src="./assets/sprites/PS-Left.png">                         
+              </td>
+              <td>
+                'th' (voiced)<br>
+                /ð/<br>
+                "<strong>th</strong>e"<br>
+                <img src="./assets/sprites/PS-R2.png">
+                <img src="./assets/sprites/PS-Right.png">                         
+              </td>
+            </tr>
+            <tr>
+              <td>
+                'ch'<br>
+                /tʃ/<br>
+                "<strong>ch</strong>ild"<br>
+                <img src="./assets/sprites/PS-L1.png">
+                <img src="./assets/sprites/PS-Start.png">                         
+              </td>
+              <td>
+                'sh'<br>
+                /ʃ/<br>
+                "<strong>sh</strong>ow"<br>
+                <img src="./assets/sprites/PS-L1.png">
+                <img src="./assets/sprites/PS-Triangle.png">                         
+              </td>
+              <td>
+                'zh'<br>
+                /ʒ/<br>
+                "a<strong>z</strong>ure"<br>
+                <img src="./assets/sprites/PS-L1.png">
+                <img src="./assets/sprites/PS-Square.png">                         
+              </td>
+              <td>
+                'er'<br>
+                /ɚ/<br>
+                "play<strong>er</strong>"<br>
+                <img src="./assets/sprites/PS-Right.png">                         
+              </td>
+              <td>
+                'ng'<br>
+                /ŋ/<br>
+                "ri<strong>ng</strong>"<br>
+                <img src="./assets/sprites/PS-L1.png">
+                <img src="./assets/sprites/PS-Left.png">                         
+              </td>
+            </tr>
+          </table>
+        </div>
+        <br>
+        <div id="vowels">
+          Vowels<br>
+          [Short]<br>
+          <table>
+            <tr>
+              <td>
+                'a'<br>
+                /æ/<br>
+                "b<strong>a</strong>t"<br>
+                <img src="./assets/sprites/PS-Square.png">                         
+              </td>
+              <td>
+                'e'<br>
+                /ɛ/<br>
+                "b<strong>e</strong>t"<br>
+                <img src="./assets/sprites/PS-Left.png">                         
+              </td>
+              <td>
+                'i'<br>
+                /ɪ/<br>
+                "b<strong>i</strong>t"<br>
+                <img src="./assets/sprites/PS-R1.png">                         
+                <img src="./assets/sprites/PS-Triangle.png">                         
+              </td>
+              <td>
+                'o'<br>
+                /ɑ/<br>
+                "b<strong>o</strong>t"<br>
+                <img src="./assets/sprites/PS-X.png">                         
+              </td>
+              <td>
+                'u'<br>
+                /ʌ/<br>
+                "b<strong>u</strong>t"<br>
+                <img src="./assets/sprites/PS-L2.png">                         
+                <img src="./assets/sprites/PS-Left.png">                         
+              </td>
+            </tr>
+          </table>
+          [Long]<br>
+          <table>
+            <tr>
+              <td>
+                'a'<br>
+                /eɪ/<br>
+                "m<strong>a</strong>te"<br>
+                <img src="./assets/sprites/PS-R1.png">                         
+                <img src="./assets/sprites/PS-X.png">                         
+              </td>
+              <td>
+                'e'<br>
+                /i/<br>
+                "m<strong>ee</strong>t"<br>
+                <img src="./assets/sprites/PS-R1.png">     
+                <img src="./assets/sprites/PS-Circle.png">                                             
+              </td>
+              <td>
+                'i'<br>
+                /aɪ/<br>
+                "m<strong>i</strong>te"<br>
+                <img src="./assets/sprites/PS-Up.png">                         
+              </td>
+              <td>
+                'o'<br>
+                /oʊ/<br>
+                "m<strong>o</strong>te"<br>
+                <img src="./assets/sprites/PS-R2.png">     
+                <img src="./assets/sprites/PS-X.png">                         
+              </td>
+              <td>
+                'u'<br>
+                /u/<br>
+                "m<strong>oo</strong>t"<br>
+                <img src="./assets/sprites/PS-L2.png">                         
+                <img src="./assets/sprites/PS-Up.png">                         
+              </td>
+            </tr>
+          </table>
+        </div>
+      </div>
+    
+    
+    
     </div>
     <div class="noise-overlay"></div>
     <div class="scanlines"></div>
-
   </body>
-
 </html>
